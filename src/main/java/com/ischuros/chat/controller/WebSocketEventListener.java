@@ -15,10 +15,14 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 @Component
 public class WebSocketEventListener {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(WebSocketEventListener.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketEventListener.class);
+
+	private final SimpMessageSendingOperations messagingTemplate;
 
 	@Autowired
-	private SimpMessageSendingOperations messagingTemplate;
+	public WebSocketEventListener(SimpMessageSendingOperations messagingTemplate) {
+		this.messagingTemplate = messagingTemplate;
+	}
 
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
